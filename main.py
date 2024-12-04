@@ -8,7 +8,7 @@ import asyncio
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-ONLY_DM = os.getenv('OnlyDM', 'true').lower() == 'true'
+ONLY_DM = os.getenv('ONLY_DM', 'true').lower() == 'true'
 
 intents = Intents.default()
 intents.message_content = True
