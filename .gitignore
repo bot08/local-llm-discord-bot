@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# bat
+win_bot_start.bat
+
 # C extensions
 *.so
 

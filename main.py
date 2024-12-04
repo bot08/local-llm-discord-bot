@@ -8,11 +8,14 @@ import asyncio
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
+ONLY_DM = os.getenv('OnlyDM', 'true').lower() == 'true'
 
 intents = Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix='!', intents=intents)
+
+isAnswering = False
 
 async def keep_typing(channel, typing_interval=5):
     while True:
@@ -26,11 +29,14 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    if message.author == bot.user:
+    global isAnswering
+
+    if message.author == bot.user or ONLY_DM and not isinstance(message.channel, discord.DMChannel):
         return
 
-    if isinstance(message.channel, discord.DMChannel) and not message.content.startswith(bot.command_prefix):
-        print(f"Private message from {message.author}: {message.content}")
+    if not message.content.startswith(bot.command_prefix) and not isAnswering:
+        print(f"Message from {message.author}: {message.content}")
+        isAnswering = True
 
         try:
             typing_task = asyncio.create_task(keep_typing(message.channel))
@@ -40,6 +46,8 @@ async def on_message(message):
         except Exception as e:
             print(f"Error: {e}")
             await message.channel.send("Error occurred while processing your request.")
+        finally:
+            isAnswering = False
 
     await bot.process_commands(message)
 
