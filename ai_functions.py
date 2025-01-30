@@ -13,18 +13,20 @@ def load_model():
     global model
     model_path = os.getenv('MODEL_PATH')
     n_ctx = int(os.getenv('MODEL_N_CTX', 512))
+    n_gpu_layers = int(os.getenv('GPU_LAYERS', 0))
 
     if model is None:
         model = Llama(
             model_path=model_path,
             n_ctx=n_ctx,
+            n_gpu_layers=n_gpu_layers,
             n_parts=1,
             verbose=True,
         )
         print("Model loaded successfully")
 
 
-def get_chat_response(msg, max_tokens=128, top_k=30, top_p=0.95, temperature=0.65, repeat_penalty=1.1):
+def get_chat_response(msg, max_tokens=128, top_k=30, top_p=0.95, temperature=0.6, repeat_penalty=1.1):
     global model, conversation_history
 
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
@@ -50,6 +52,7 @@ def get_chat_response(msg, max_tokens=128, top_k=30, top_p=0.95, temperature=0.6
         conversation_history.append({"role": "assistant", "content": response_text})
         conversation_history = conversation_history[-4:]
 
+        print(f"Message from Bot: {response_text}")
         return response_text
 
     except Exception as e:

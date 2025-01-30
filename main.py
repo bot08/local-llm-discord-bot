@@ -31,6 +31,7 @@ async def on_ready():
 async def on_message(message):
     global isAnswering
 
+    #  and message.channel.id != 1156097536805847120
     if message.author == bot.user or ONLY_DM and not isinstance(message.channel, discord.DMChannel):
         return
 
