@@ -8,12 +8,17 @@ model = None
 conversation_history = []
 
 SYSTEM_PROMPT = os.getenv('SYSTEM_PROMPT')
+max_tokens = int(os.getenv('MAX_TOKENS', 128))
+top_k = int(os.getenv('TOP_K', 40))
+top_p = int(os.getenv('TOP_K', 90))
+temperature = float(os.getenv('TEMPERATURE', 0.7))
+repeat_penalty = float(os.getenv('REPEAT_PENALTY', 1.1))
 
 def load_model():
     global model
     model_path = os.getenv('MODEL_PATH')
-    n_ctx = int(os.getenv('MODEL_N_CTX', 512))
     n_gpu_layers = int(os.getenv('GPU_LAYERS', 0))
+    n_ctx = int(os.getenv('MODEL_N_CTX', 512))
 
     if model is None:
         model = Llama(
@@ -26,8 +31,10 @@ def load_model():
         print("Model loaded successfully")
 
 
-def get_chat_response(msg, max_tokens=128, top_k=30, top_p=0.95, temperature=0.6, repeat_penalty=1.1):
+def get_chat_response(msg, max_tokens=max_tokens, top_k=top_k, top_p=top_p, temperature=temperature, repeat_penalty=repeat_penalty):
     global model, conversation_history
+
+    #print(max_tokens, top_k, top_p, temperature, repeat_penalty)
 
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
     messages.extend(conversation_history[-4:])
