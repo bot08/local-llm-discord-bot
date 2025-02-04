@@ -71,6 +71,7 @@ class DiscordBot(commands.Bot):
                     await self.safe_send(message.channel, ''.join(response))
     
             except Exception as e:
+                print(f"Critical error: {str(e)}")
                 await message.channel.send(f"🚨 Critical error: {str(e)}")
                 
             finally:

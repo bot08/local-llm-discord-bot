@@ -31,6 +31,8 @@ class LLMService:
                     {"role": "user", "content": message}
                 ]
 
+                print(f"Model config: {self.config.model_params}") if self.config.full_log else None
+
                 completion_params = {
                     'messages': messages,
                     'stream': True,
