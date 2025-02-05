@@ -20,7 +20,7 @@ class LLMService:
                 )
                 print("LLM model initialized")
 
-    def get_response(self, user_id: str, message: str) -> str:
+    def get_response(self, user_id, message):
         with self.lock:
             try:
                 history = self.conversations.get(user_id, [])
