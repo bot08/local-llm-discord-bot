@@ -26,9 +26,10 @@ A lightweight Discord bot interface for interacting with locally-hosted language
 2. **Create `.env`**:
     ```env
     DISCORD_TOKEN=TOKEN
+    MODEL_PATH=Llama-3.1-8B-Q4_K_L.gguf
+    # Required parameters above. Optional below:
     COMMAND_PREFIX=!
     FULL_LOG=FALSE
-    MODEL_PATH=Llama-3.1-8B-Q4_K_L.gguf
     MODEL_N_CTX=512
     MAX_TOKENS=128
     TOP_K=40
@@ -64,7 +65,7 @@ A lightweight Discord bot interface for interacting with locally-hosted language
 | `TEMPERATURE`         | Float    | Response randomness (0.1-2.0)                   | `0.7`                 |
 | `REPEAT_PENALTY`      | Float    | Penalize repeated phrases                       | `1.1`                 |
 | `GPU_LAYERS`          | Integer  | GPU offloading layers (0=CPU-only)              | `0`                   |
-| `ONLY_DM`             | Boolean  | Restrict bot to DMs                             | `TRUE`                |
+| `ONLY_DM`             | Boolean  | Bot responds only in DMs                        | `TRUE`                |
 | `HISTORY_LIMIT`       | Integer  | Max stored message pairs (user+assistant)       | `3`                   |
 | `STREAM_MODE`         | Boolean  | Enable real-time token streaming                | `FALSE`               |
 | `SYSTEM_PROMPT`       | String   | Initial assistant behavior prompt               | `You are a helpful...`|
@@ -73,9 +74,8 @@ A lightweight Discord bot interface for interacting with locally-hosted language
 
 ## TODO
 
-- **Stream fix**:  
-  - Fix generation interruption caused by Discord API rate limits  
-  - Implement adaptive delay between token sends 
-- **History System**:  
-  - Prevent accidental system prompt truncation in `HISTORY_LIMIT`  
-  - Add `!clearhistory` command to reset conversations  
+- **Stream fix**:
+  - Fix generation interruption caused by Discord API rate limits
+  - Implement adaptive delay between token sends
+- **History System**:
+  - Add `!clearhistory` command to reset conversations

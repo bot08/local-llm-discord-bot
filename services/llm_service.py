@@ -53,7 +53,7 @@ class LLMService:
                 
                 full_response = "".join(response_chunks)
                 
-                # Upd history
+                # Update history
                 new_history = history + [
                     {"role": "user", "content": message},
                     {"role": "assistant", "content": full_response}
