@@ -10,7 +10,7 @@ class Config:
         self.full_log = os.getenv('FULL_LOG', 'false').lower() == 'true'
         self.model_path = self._validate_path(os.getenv('MODEL_PATH'))
         self.system_prompt = os.getenv('SYSTEM_PROMPT', 'You are a helpful assistant')
-        self.history_limit = int(os.getenv('HISTORY_LIMIT', 6))
+        self.history_limit = int(os.getenv('HISTORY_LIMIT', 3))
         self.stream_mode = os.getenv('STREAM_MODE', 'false').lower() == 'true'
         
         self.model_params = {

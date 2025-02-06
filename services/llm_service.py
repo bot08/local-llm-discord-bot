@@ -58,7 +58,7 @@ class LLMService:
                     {"role": "user", "content": message},
                     {"role": "assistant", "content": full_response}
                 ]
-                self.conversations[user_id] = new_history[-self.config.history_limit:]
+                self.conversations[user_id] = new_history[-self.config.history_limit * 2 :]
                 
                 return response_chunks
                 
