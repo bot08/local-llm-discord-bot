@@ -14,9 +14,9 @@ class Config:
         self.stream_mode = os.getenv('STREAM_MODE', 'false').lower() == 'true'
         
         self.model_params = {
-            'n_ctx': int(os.getenv('MODEL_N_CTX', 512)),
+            'n_ctx': int(os.getenv('MODEL_N_CTX', 1024)),
             'n_gpu_layers': int(os.getenv('GPU_LAYERS', 0)),
-            'max_tokens': int(os.getenv('MAX_TOKENS', 128)),
+            'max_tokens': int(os.getenv('MAX_TOKENS', 256)),
             'temperature': float(os.getenv('TEMPERATURE', 0.7)),
             'top_k': int(os.getenv('TOP_K', 40)),
             'top_p': float(os.getenv('TOP_P', 0.95)),

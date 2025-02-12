@@ -58,8 +58,8 @@ A lightweight Discord bot interface for interacting with locally-hosted language
 | `COMMAND_PREFIX`      | String   | Bot command prefix                              | `!`                   |
 | `FULL_LOG`            | Boolean  | Enable verbose logging                          | `FALSE`               |
 | `MODEL_PATH`          | String   | **Required** Path to GGUF model file            | -                     |
-| `MODEL_N_CTX`         | Integer  | Context window size                             | `512`                 |
-| `MAX_TOKENS`          | Integer  | Maximum tokens per response                     | `128`                 |
+| `MODEL_N_CTX`         | Integer  | Context window size                             | `1024`                |
+| `MAX_TOKENS`          | Integer  | Maximum tokens per response                     | `256`                 |
 | `TOP_K`               | Integer  | Top-k sampling                                  | `40`                  |
 | `TOP_P`               | Float    | Top-p sampling                                  | `0.95`                |
 | `TEMPERATURE`         | Float    | Response randomness (0.1-2.0)                   | `0.7`                 |
