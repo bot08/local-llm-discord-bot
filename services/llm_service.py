@@ -65,3 +65,10 @@ class LLMService:
             except Exception as e:
                 self.conversations.pop(user_id, None)
                 return [f"⚠️ Error: {str(e)}"]
+            
+    def clear_history(self, user_id):
+        with self.lock:
+            if user_id in self.conversations:
+                del self.conversations[user_id]
+                return True
+            return False

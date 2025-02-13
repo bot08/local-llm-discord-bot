@@ -30,8 +30,8 @@ A lightweight Discord bot interface for interacting with locally-hosted language
     # Required parameters above. Optional below:
     COMMAND_PREFIX=!
     FULL_LOG=FALSE
-    MODEL_N_CTX=512
-    MAX_TOKENS=128
+    MODEL_N_CTX=1024
+    MAX_TOKENS=256
     TOP_K=40
     TOP_P=0.95
     TEMPERATURE=0.7
@@ -77,5 +77,3 @@ A lightweight Discord bot interface for interacting with locally-hosted language
 - **Stream fix**:
   - Fix generation interruption caused by Discord API rate limits
   - Implement adaptive delay between token sends
-- **History System**:
-  - Add `!clearhistory` command to reset conversations
