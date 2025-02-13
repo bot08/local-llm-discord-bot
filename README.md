@@ -8,6 +8,7 @@ A lightweight Discord bot interface for interacting with locally-hosted language
 
 - **DM-Only Interactions**: Restrict bot usage to private messages
 - **Context-Aware Chat**: Maintains limited conversation history per user
+- **Ping & Clear Commands**: `ping` displays bot latency, `clear` resets user history
 - **Message Chunking**: Automatically splits long responses (>2000 chars)
 - **GPU Acceleration**: Configure offloading layers for performance
 - **Streaming Mode**: Real-time token delivery with typing simulation

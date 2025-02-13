@@ -14,24 +14,25 @@ class LLMService:
             if not self.model:
                 self.model = Llama(
                     model_path=self.config.model_path,
-                    n_ctx=self.config.model_params.get('n_ctx', 512),
+                    n_ctx=self.config.model_params.get('n_ctx', 1024),
                     n_gpu_layers=self.config.model_params.get('n_gpu_layers', 0),
                     verbose=self.config.full_log
                 )
                 print("LLM model initialized")
 
-    def get_response(self, user_id, message):
+    def get_response(self, user_id, message, username=None):
         with self.lock:
             try:
                 history = self.conversations.get(user_id, [])
                 
                 messages = [
-                    {"role": "system", "content": self.config.system_prompt},
+                    {"role": "system", "content": self.config.system_prompt.replace("[user]", username or "user")},
                     *history[-self.config.history_limit:],
                     {"role": "user", "content": message}
                 ]
 
                 print(f"Model config: {self.config.model_params}") if self.config.full_log else None
+                print(f"History: {messages}") if self.config.full_log else None
 
                 completion_params = {
                     'messages': messages,

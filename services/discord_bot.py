@@ -54,7 +54,8 @@ class DiscordBot(commands.Bot):
                 response = await asyncio.to_thread(
                     self.llm.get_response,
                     user_id,
-                    message.content
+                    message.content,
+                    message.author.name
                 )
                 
                 if self.config.stream_mode:
