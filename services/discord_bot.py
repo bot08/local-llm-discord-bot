@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 import asyncio
 from typing import Dict
+import aiohttp
+import aiofiles
 
 class DiscordBot(commands.Bot):
     def __init__(self, config, llm_service):
@@ -69,7 +71,9 @@ class DiscordBot(commands.Bot):
                     await sent_message.edit(content=current_response)
                 else:
                     # No stream
-                    await self.safe_send(message.channel, ''.join(response))
+                    full_response = ''.join(response)
+                    await self.send_voice(message.channel, full_response)
+                    #await self.safe_send(message.channel, ''.join(response))
     
             except Exception as e:
                 print(f"Critical error: {str(e)}")
@@ -97,3 +101,31 @@ class DiscordBot(commands.Bot):
             await self.process_message(message)
             
         await self.process_commands(message)
+
+    async def generate_voice(self, text):
+        params = {
+            'words': text,
+            'speaker': self.config.default_speaker,
+            'sample_rate': self.config.sample_rate
+        }
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.get(
+                f"{self.config.voice_service_url}/get_audio_file",
+                params=params,
+                headers={'accept': 'application/json'}
+            ) as response:
+                if response.status != 200:
+                    return None
+                
+                temp_file = "voice.mp3"
+                async with aiofiles.open(temp_file, 'wb') as f:
+                    await f.write(await response.read())
+                return temp_file
+
+    async def send_voice(self, channel, text):
+        voice_file = await self.generate_voice(text)
+        if voice_file:
+            await channel.send(file=discord.File(voice_file))
+        else:
+            await self.safe_send(channel, f"🔇 Text: {text}")

@@ -12,6 +12,9 @@ class Config:
         self.system_prompt = os.getenv('SYSTEM_PROMPT', 'You are a helpful assistant')
         self.history_limit = int(os.getenv('HISTORY_LIMIT', 3))
         self.stream_mode = os.getenv('STREAM_MODE', 'false').lower() == 'true'
+        self.voice_service_url = os.getenv('VOICE_SERVICE_URL', 'http://127.0.0.1:8080')
+        self.default_speaker = os.getenv('DEFAULT_SPEAKER', 'baya')
+        self.sample_rate = os.getenv('SAMPLE_RATE', '48000')
         
         self.model_params = {
             'n_ctx': int(os.getenv('MODEL_N_CTX', 1024)),
