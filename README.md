@@ -10,6 +10,7 @@ A lightweight Discord bot interface for interacting with locally-hosted language
 - **Context-Aware Chat**: Maintains limited conversation history per user
 - **Ping & Clear Commands**: `ping` displays bot latency, `clear` resets user history
 - **Message Chunking**: Automatically splits long responses (>2000 chars)
+- **Custom Username Injection**: Use [user] in SYSTEM_PROMPT to dynamically insert the current user's name
 - **GPU Acceleration**: Configure offloading layers for performance
 - **Streaming Mode**: Real-time token delivery with typing simulation
 - **Custom Prompts**: Modify system behavior via `SYSTEM_PROMPT`
