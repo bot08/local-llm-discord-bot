@@ -12,6 +12,8 @@ class Config:
         self.system_prompt = os.getenv('SYSTEM_PROMPT', 'You are a helpful assistant')
         self.history_limit = int(os.getenv('HISTORY_LIMIT', 3))
         self.stream_mode = os.getenv('STREAM_MODE', 'false').lower() == 'true'
+        self.plugins_dir = os.getenv('PLUGINS_DIR', 'plugins')
+        self.chat_format = os.getenv('CHAT_FORMAT', 'chatml-function-calling')
         
         self.model_params = {
             'n_ctx': int(os.getenv('MODEL_N_CTX', 1024)),
