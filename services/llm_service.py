@@ -14,6 +14,7 @@ class LLMService:
             if not self.model:
                 self.model = Llama(
                     model_path=self.config.model_path,
+                    chat_format=self.config.chat_format,
                     n_ctx=self.config.model_params.get('n_ctx', 1024),
                     n_gpu_layers=self.config.model_params.get('n_gpu_layers', 0),
                     verbose=self.config.full_log

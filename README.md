@@ -60,6 +60,7 @@ A lightweight Discord bot interface for interacting with locally-hosted language
 | `COMMAND_PREFIX`      | String   | Bot command prefix                              | `!`                   |
 | `FULL_LOG`            | Boolean  | Enable verbose logging                          | `FALSE`               |
 | `MODEL_PATH`          | String   | **Required** Path to GGUF model file            | -                     |
+| `CHAT_FORMAT`         | String   | Chat formatting style for model                 | `None`                |
 | `MODEL_N_CTX`         | Integer  | Context window size                             | `1024`                |
 | `MAX_TOKENS`          | Integer  | Maximum tokens per response                     | `256`                 |
 | `TOP_K`               | Integer  | Top-k sampling                                  | `40`                  |
