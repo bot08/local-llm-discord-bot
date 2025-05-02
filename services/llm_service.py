@@ -42,6 +42,7 @@ class LLMService:
                     'temperature': self.config.model_params.get('temperature'),
                     'top_k': self.config.model_params.get('top_k'),
                     'top_p': self.config.model_params.get('top_p'),
+                    'min_p': self.config.model_params.get('min_p'),
                     'repeat_penalty': self.config.model_params.get('repeat_penalty')
                 }
 
