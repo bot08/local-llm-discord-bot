@@ -36,6 +36,7 @@ A lightweight Discord bot interface for interacting with locally-hosted language
     MAX_TOKENS=256
     TOP_K=40
     TOP_P=0.95
+    MIN_P=0.05
     TEMPERATURE=0.7
     REPEAT_PENALTY=1.1
     GPU_LAYERS=7
@@ -65,6 +66,7 @@ A lightweight Discord bot interface for interacting with locally-hosted language
 | `MAX_TOKENS`          | Integer  | Maximum tokens per response                     | `256`                 |
 | `TOP_K`               | Integer  | Top-k sampling                                  | `40`                  |
 | `TOP_P`               | Float    | Top-p sampling                                  | `0.95`                |
+| `MIN_P`               | Float    | Min-p sampling                                  | `0.05`                |
 | `TEMPERATURE`         | Float    | Response randomness (0.1-2.0)                   | `0.7`                 |
 | `REPEAT_PENALTY`      | Float    | Penalize repeated phrases                       | `1.1`                 |
 | `GPU_LAYERS`          | Integer  | GPU offloading layers (0=CPU-only)              | `0`                   |
