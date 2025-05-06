@@ -1,14 +1,37 @@
 import threading
 from llama_cpp import Llama
 from typing import Dict, List
+from pathlib import Path
+import importlib.util
 
 class LLMService:
     def __init__(self, config):
         self.config = config
         self.model = None
+        self.functions = []
+        self.function_handlers = {}
+        self._load_plugins()
         self.conversations: Dict[str, List[dict]] = {}
         self.lock = threading.Lock()
+        print(self.functions)
+        print(self.function_handlers)
         
+    def _load_plugins(self):
+        plugins_dir = Path(__file__).parent.parent / Path(self.config.plugins_dir)
+        for plugin_file in plugins_dir.glob('*.py'):
+            spec = importlib.util.spec_from_file_location(plugin_file.stem, plugin_file)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            
+            if hasattr(module, 'get_functions'):
+                self.functions.extend(module.get_functions())
+            
+            if hasattr(module, 'handle_function_call'):
+                self.function_handlers.update({
+                    func['function']['name']: module.handle_function_call
+                    for func in module.get_functions()
+                })
+
     def initialize_model(self):
         with self.lock:
             if not self.model:
@@ -37,7 +60,9 @@ class LLMService:
 
                 completion_params = {
                     'messages': messages,
-                    'stream': True,
+                    'tools': self.functions,
+                    'tool_choice': "auto",
+                    'stream': self.config.stream_mode,
                     'max_tokens': self.config.model_params.get('max_tokens'),
                     'temperature': self.config.model_params.get('temperature'),
                     'top_k': self.config.model_params.get('top_k'),
